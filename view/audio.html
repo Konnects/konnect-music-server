@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Doc</title>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    </head>
+
+    <body>
+        <div id="container">
+            <audio autoplay controls id="audioContainer">
+                <source id="audioSrc"
+                src="http://konnect-app-server.herokuapp.com/streaming?URL=https://www.youtube.com/watch?v=GJm7H9IP5SU"
+                onseeking="playerSeeking()" type="audio/ogg">
+            </audio>
+        </div>
+        
+        <br />
+        <input type="range" id="seek" value="0" max="" />
+        <button onclick=Pause()>PAUSE</button>
+        <button onclick=Play()>PLAY</button>
+
+        <script>
+
+            $(document).ready(()=>{
+                $("#container").hide();
+            });
+
+            var song = document.getElementById("audioContainer");
+
+            function playerSeeking() {
+                console.log('test');
+            }
+
+            function Pause() {
+                song.pause();
+            }
+
+            function Play() {
+                song.play();
+            }
+
+            song.addEventListener('timeupdate', function () {
+                $("#seek").attr("max", song.duration);
+                $('#seek').val(song.currentTime);
+            });
+
+            $("#seek").bind("change", function () {
+                song.currentTime = $(this).val();
+            });
+        </script>
+
+    </body>
+
+</html>
