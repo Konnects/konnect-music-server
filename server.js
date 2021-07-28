@@ -58,7 +58,7 @@ app.get("/stream/:videoId", async (req, res) => {
         const videoInfo = await ytdl.getInfo(videoId)
         let audioFormat = ytdl.chooseFormat(videoInfo.formats, {
             filter: "audioonly",
-            quality: "lowest"
+            quality: "highestaudio"
         });
 
         const { itag, container, contentLength } = audioFormat
