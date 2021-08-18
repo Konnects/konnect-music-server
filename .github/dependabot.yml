@@ -1,0 +1,13 @@
+# dependabot.yml file with updates
+# disabled for Docker and limited for npm
+
+version: 2
+updates:
+  # Configuration for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      # Allow updates for ytdl-core
+      - dependency-name: "ytdl-core"
