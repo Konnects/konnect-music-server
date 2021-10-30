@@ -1,0 +1,8 @@
+# ignore node modules
+node_modules
+
+# ignore heroku proc file
+Procfile
+
+# ignore github files
+.github/
