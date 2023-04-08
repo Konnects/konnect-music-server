@@ -1,5 +1,5 @@
 # using alpine version of node for less image size
-FROM node:14-alpine3.13
+FROM node:16-alpine3.16
 
 # creating work directory in image file
 WORKDIR /app
