@@ -14,7 +14,7 @@ var uuidGen = require('uuid');
 // });
 
 const cors = require('cors');
-const ytdl = require('ytdl-core');
+const ytdl = require('@distube/ytdl-core');
 
 app.use(express.static('public')); // loads all static assets from 'public' folder
 
