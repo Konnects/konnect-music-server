@@ -15,6 +15,8 @@ var uuidGen = require('uuid');
 
 const cors = require('cors');
 const ytdl = require('@distube/ytdl-core');
+const fs = require('fs');
+const agent = ytdl.createAgent(JSON.parse(fs.readFileSync("cookies.json")));
 
 app.use(express.static('public')); // loads all static assets from 'public' folder
 
@@ -35,7 +37,8 @@ app.get('/streaming', function (req, res) {
         ytdl(URL, {
             // format: 'ogg'
             quality: 'lowest',
-            filter: 'audioonly'
+            filter: 'audioonly',
+            agent: agent
         }).pipe(res);
     }
     catch (e) {
@@ -49,16 +52,17 @@ app.get("/stream/:videoId", async (req, res) => {
     try {
         console.log('serving music');
         const { videoId } = req.params
-        const isValid = ytdl.validateID(videoId)
+        const isValid = ytdl.validateID(videoId, {agent: agent})
 
         if (!isValid) {
             throw new Error()
         }
 
-        const videoInfo = await ytdl.getInfo(videoId)
+        const videoInfo = await ytdl.getInfo(videoId, {agent: agent})
         let audioFormat = ytdl.chooseFormat(videoInfo.formats, {
             filter: "audioonly",
-            quality: "highestaudio"
+            quality: "highestaudio",
+            agent: agent
         });
 
         const { itag, container, contentLength } = audioFormat
